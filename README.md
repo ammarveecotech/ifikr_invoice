@@ -1,59 +1,84 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# LHDN E-Invoice API Proxy Server
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A **stateless Laravel-based proxy server** for LHDN (Lembaga Hasil Dalam Negeri) Malaysia e-invoicing integration.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- ✅ Complete LHDN Integration with OAuth2
+- ✅ Digital Signatures & XML Generation
+- ✅ QR Code Generation
+- ✅ Document Status Tracking
+- ✅ API Key Authentication
+- ✅ Comprehensive Logging
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📚 Documentation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **[API Documentation](docs/API_DOCUMENTATION.md)** - Complete API reference
+- **[Quick Reference](docs/QUICK_REFERENCE.md)** - Quick start guide
 
-## Learning Laravel
+## 🚀 Quick Start
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 1. Install Dependencies
+```bash
+composer install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Configure Environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Laravel Sponsors
+Update `.env`:
+```env
+DB_DATABASE=veeco_ifikr_invoice
+EINVOICE_CLIENT_ID=your_client_id
+EINVOICE_CLIENT_SECRET=your_client_secret
+API_KEY=your_secure_key
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 3. Setup Database
+```bash
+php artisan migrate
+php artisan db:seed --class=CompanySeeder
+php artisan db:seed --class=SettingsSeeder
+```
 
-### Premium Partners
+### 4. Test API
+```bash
+curl https://your-domain.com/api/health
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 📡 API Endpoints
 
-## Contributing
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/health` | Health check |
+| POST | `/api/documents` | Submit e-invoice |
+| GET | `/api/documents/{uid}` | Get document |
+| PUT | `/api/documents/{uid}/cancel` | Cancel document |
+| GET | `/api/settings/{code}` | Get lookup codes |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+See [API Documentation](docs/API_DOCUMENTATION.md) for complete reference.
 
-## Code of Conduct
+## 🔧 Requirements
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- PHP 8.2+
+- MySQL 5.7+
+- Composer 2.x
+- LHDN Digital Certificate
 
-## Security Vulnerabilities
+## 🔒 Security
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- API Key Authentication (X-API-Key header)
+- Encrypted logging
+- Rate limiting ready
+- HTTPS enforcement for production
 
-## License
+## 📝 License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Proprietary Software - VeecoTech Solutions
+
+---
+
+**Version:** 1.0.0 | **Status:** Production Ready ✅
